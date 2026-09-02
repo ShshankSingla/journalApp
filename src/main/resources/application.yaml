@@ -1,0 +1,95 @@
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+      database: journaldb
+      auto-index-creation: true
+
+    redis:
+      url: ${REDIS_URL}
+
+  mail:
+    host: smtp.gmail.com
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    consumer:
+      group-id: weekly-sentiment-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: net.engineeringdigest.journalApp.model
+
+    properties:
+      session:
+        timeout:
+          ms: 45000
+
+weather:
+  api:
+    key: ${WEATHER_API_KEY}
+
+jwt:
+  secret: ${JWT_SECRET}
+#data:
+#  mongodb:
+#    uri:
+#    database: journaldb
+#    auto-index-creation: true
+#
+#server:
+#  port: 8080
+#  servlet:
+#    context-path: /journal
+
+#logging:
+#  level:
+#    net:
+#      engineeringdigest:
+#        journalApp:DEBUG  #ERROR
+
+
+#*
+
+#  kafka:
+#    bootstrap-servers: ${KAFKA_SERVERS}
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#    consumer:
+#      group-id: weekly-sentiment-group
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      properties:
+#        spring:
+#          json:
+#            trusted:
+#              packages: net.engineeringdigest.journalApp.model
+#    properties:
+#      security:
+#        protocol: SASL_SSL
+#      sasl:
+#        mechanism: PLAIN
+#        jaas:
+#          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='X' password='X';
+#      session:
+#        timeout:
+#          ms: 45000
+

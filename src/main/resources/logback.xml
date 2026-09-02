@@ -1,0 +1,60 @@
+<configuration>
+
+    <!-- master console appender -->
+    <appender name="myConsoleAppender"
+              class="ch.qos.logback.core.ConsoleAppender">
+
+        <!-- encoder --> <!-- format in which log is printed -->
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+
+    </appender>
+
+    <!-- master file appender -->
+<!--    <appender name="myFileAppender"-->
+<!--              class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+
+<!--        &lt;!&ndash; current log file &ndash;&gt;-->
+<!--        <file>journalApp.log</file>-->
+
+<!--        &lt;!&ndash; rolling policy &ndash;&gt;-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+
+<!--            &lt;!&ndash; archived log file name &ndash;&gt;-->
+<!--            <fileNamePattern>journalApp-%d{yy-MM-dd_HH-mm}.%i.log</fileNamePattern>-->
+
+<!--            &lt;!&ndash; maximum size of one log file &ndash;&gt;-->
+<!--            <maxFileSize>10MB</maxFileSize>-->
+
+<!--            &lt;!&ndash; keep logs for last 10 periods &ndash;&gt;-->
+<!--            <maxHistory>10</maxHistory>-->
+
+<!--        </rollingPolicy>-->
+
+
+
+        <!-- encoder --> <!-- format in which log is written to file -->
+<!--        <encoder>-->
+<!--            <pattern>-->
+<!--                %d{yy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n-->
+<!--            </pattern>-->
+<!--        </encoder>-->
+
+<!--    </appender>-->
+
+    <!-- root logger -->
+    <!-- INFO and above logs will be printed -->
+    <root level="INFO">
+
+        <!-- print logs on console -->
+        <appender-ref ref="myConsoleAppender"/>
+
+        <!-- save logs in file -->
+<!--        <appender-ref ref="myFileAppender"/>-->
+
+    </root>
+
+</configuration>
