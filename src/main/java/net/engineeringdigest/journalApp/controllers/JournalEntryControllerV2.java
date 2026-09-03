@@ -1,5 +1,7 @@
 package net.engineeringdigest.journalApp.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import net.engineeringdigest.journalApp.entity.JournalEntry;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.service.JournalEntryService;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/journal") // add mapping
+@Tag(name = "Journal APIs" )
 public class JournalEntryControllerV2 {
 
     @Autowired
@@ -31,6 +34,7 @@ public class JournalEntryControllerV2 {
     }
 
     @GetMapping // pehle hm user name path se le rahe theh, par ab security cotext se le rahe hai  : "/{userName}"
+    @Operation(summary = "Get all journal entries of a user")
     public ResponseEntity<?> getAllJorunalEntreisOfUser(){ // @PathVariable String userName
         // yaha se hm user name fetch karnenge - security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -78,8 +82,8 @@ public class JournalEntryControllerV2 {
 //    }
 
     @GetMapping("id/{myId}")
-    public ResponseEntity<JournalEntry> getJournalEntryById(@PathVariable ObjectId myId) {
-
+    public ResponseEntity<JournalEntry> getJournalEntryById(@PathVariable String myId) { // normally we are using this @PathVariable ObjectId myId, but need to made changes for swagger
+        ObjectId objectId = new ObjectId(myId);
         // till now we have userId
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -88,9 +92,9 @@ public class JournalEntryControllerV2 {
 
         User user = userService.findByUserName(userName);
 //      user ki jitni bhi journal entries hai, usme find kar rahe hai ki myId hai ya nahi
-        List<JournalEntry> collect = user.getJournalEntries().stream().filter(x->x.getId().equals(myId)).collect(Collectors.toList());
+        List<JournalEntry> collect = user.getJournalEntries().stream().filter(x->x.getId().equals(objectId)).collect(Collectors.toList());
         if(collect != null){
-            Optional<JournalEntry> journalEntryOptional = journalEntryService.findById(myId);
+            Optional<JournalEntry> journalEntryOptional = journalEntryService.findById(objectId);
 
             if (journalEntryOptional.isPresent()) {
                 return new ResponseEntity<>(journalEntryOptional.get(), HttpStatus.OK);

@@ -1,5 +1,6 @@
 package net.engineeringdigest.journalApp.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import net.engineeringdigest.journalApp.entity.JournalEntry;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/_journal") // add mapping
+@Tag(name = "Journal_extra APIs")
 public class JournalEntryController {
 
     private Map<ObjectId, JournalEntry> journalEntries = new HashMap<>();
