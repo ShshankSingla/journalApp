@@ -65,11 +65,12 @@ public class SpringSecurity {
                                 ).permitAll()
                         .requestMatchers("/public/**").permitAll()
                         //.requestMatchers("/user/**").permitAll()   // temporary for testing
+                                .requestMatchers("/auth/google/**").permitAll()
                                 .requestMatchers("/journal/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/journal/**","/user/**").authenticated()
                                 .anyRequest().authenticated()
-//                        .anyRequest().permitAll() // temporarry
+//                        .anyRequest().permitAll()
                 )
 //                .httpBasic(Customizer.withDefaults()) // we use jwt now
                 .authenticationProvider(authenticationProvider());
